@@ -12,7 +12,7 @@ const statusLabel: Record<string, string> = {
 
 useSeoMeta({
   title: () => a.value?.title || 'Œuvre',
-  description: 'Fiche œuvre — Atelier A. Moreau',
+  description: 'Fiche œuvre — Simon MENET',
 })
 </script>
 

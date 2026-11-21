@@ -3,7 +3,7 @@ const { artworks, series } = useCatalogue()
 
 
 useSeoMeta({
-  title: 'Œuvres — Atelier A. Moreau',
+  title: 'Œuvres — Simon MENET',
   description: 'Série Les Eaux intérieures et œuvres choisies.',
 })
 </script>

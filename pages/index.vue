@@ -6,7 +6,7 @@ const total = computed(() => artworks.value.length)
 const a = computed(() => artworks.value[i.value])
 
 useSeoMeta({
-  title: 'Atelier A. Moreau — Peinture',
+  title: 'Simon MENET — Peinture',
   description: 'Peintures et paysages intérieurs.',
 })
 

@@ -1,4 +1,4 @@
-# Portfolio Nuxt — Atelier A. Moreau
+# Portfolio Nuxt — Simon MENET
 Nuxt 3 / Vue 3 / TypeScript, images SVG mock locales.
 ## Démarrage
 `npm install` puis `npm run dev`, ouvrir localhost:3000. Huit œuvres de démonstration sans compte; formulaire de démonstration local sans transmission.
