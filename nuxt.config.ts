@@ -1,0 +1,1 @@
+export default defineNuxtConfig({compatibilityDate:'2025-01-01',modules:['@nuxtjs/tailwindcss'],css:['~/assets/css/main.css'],runtimeConfig:{public:{sanityProjectId:'',sanityDataset:'production',sanityApiVersion:'2025-02-19'}},app:{head:{htmlAttrs:{lang:'fr'}}}})
