@@ -73,9 +73,10 @@ export function useCatalogue() {
 
   // Si le rendu serveur a échoué, on relance la requête depuis le navigateur
   // au lieu de rester bloqué jusqu'à un rechargement manuel (Ctrl+R).
+  // On relance aussi si la liste est simplement vide (payload SSR vide sans erreur).
   onMounted(() => {
-    if (artworksError.value) refreshArtworks()
-    if (seriesError.value) refreshSeries()
+    if (artworksError.value || !artworks.value?.length) refreshArtworks()
+    if (seriesError.value || !series.value?.length) refreshSeries()
   })
 
   return { artworks, series }
