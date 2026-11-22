@@ -35,31 +35,48 @@ export function useCatalogue() {
     }
   }
 
+
   const base = `https://${projectId}.apicdn.sanity.io/v${config.sanityApiVersion}/data/query/${config.sanityDataset}`
 
-  const fetchSanity = async <T>(query: string, fallback: T): Promise<T> => {
-    try {
-      const res = await $fetch<{ result: T }>(base, {
-        params: { query },
-        timeout: 8000,
-      })
-      return res.result ?? fallback
-    } catch {
-      return fallback
+  // Quand Sanity est configuré, on ne bascule JAMAIS sur les mocks :
+  // on réessaie, puis on laisse l'erreur remonter (le client retentera).
+  const fetchSanity = async <T>(query: string, attempts = 3): Promise<T> => {
+    let lastError: unknown
+    for (let n = 0; n < attempts; n++) {
+      try {
+        const res = await $fetch<{ result: T }>(base, {
+          params: { query },
+          timeout: 8000,
+        })
+        if (res.result == null) throw new Error('Réponse Sanity vide')
+        return res.result
+      } catch (e) {
+        lastError = e
+        if (n < attempts - 1) await new Promise(r => setTimeout(r, 300 * (n + 1)))
+      }
     }
+    console.error('[useCatalogue] Échec de la requête Sanity', lastError)
+    throw lastError
   }
 
-  const { data: artworks } = useAsyncData(
+  const { data: artworks, error: artworksError, refresh: refreshArtworks } = useAsyncData(
     'catalogue-artworks',
-    () => fetchSanity<Artwork[]>(artworksQuery, mockArtworks),
+    () => fetchSanity<Artwork[]>(artworksQuery),
     { default: () => [] as Artwork[] },
   )
 
-  const { data: series } = useAsyncData(
+  const { data: series, error: seriesError, refresh: refreshSeries } = useAsyncData(
     'catalogue-series',
-    () => fetchSanity<Series[]>(seriesQuery, mockSeries),
+    () => fetchSanity<Series[]>(seriesQuery),
     { default: () => [] as Series[] },
   )
+
+  // Si le rendu serveur a échoué, on relance la requête depuis le navigateur
+  // au lieu de rester bloqué jusqu'à un rechargement manuel (Ctrl+R).
+  onMounted(() => {
+    if (artworksError.value) refreshArtworks()
+    if (seriesError.value) refreshSeries()
+  })
 
   return { artworks, series }
 }
