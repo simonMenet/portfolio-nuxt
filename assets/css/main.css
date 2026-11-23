@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,6 +26,10 @@ body {
   font-weight: 400;
 }
 
+main {
+  background: #DFDEDC;
+}
+
 button,
 input,
 textarea,
@@ -39,8 +41,9 @@ button {
   cursor: pointer;
 }
 
+/* Les éléments qui avaient la classe .mono utilisent maintenant Proxima Nova. */
 .mono {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Proxima Nova', sans-serif;
 }
 
 .display {
