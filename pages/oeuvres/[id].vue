@@ -1,6 +1,15 @@
 <script setup lang="ts">
 const route = useRoute()
-const { artworks } =  useCatalogue()
+const router = useRouter()
+const { artworks } = useCatalogue()
+
+function goBack() {
+  if (typeof window !== 'undefined' && typeof window.history.state?.back === 'string') {
+    router.back()
+  } else {
+    void navigateTo('/oeuvres')
+  }
+}
 
 const a = computed(() => artworks.value.find(x => x.id === route.params.id))
 
@@ -25,8 +34,15 @@ useSeoMeta({
       class="max-h-[75vh] w-full object-contain"
     >
     <aside>
+      <button
+        type="button"
+        class="mono mb-8 inline-flex items-center border-b border-black/30 pb-1 text-xs text-black/60 transition-colors hover:border-black hover:text-black focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
+        @click="goBack"
+      >
+        ← Retour
+      </button>
       <p class="mono text-xs">INVENTAIRE / {{ a.id }}</p>
-      <h1 class="display my-6 text-5xl">{{ a.title }}</h1>
+      <h1 class="my-6 text-[2rem] leading-tight">{{ a.title }}</h1>
       <p class="border-t border-black py-4">
         {{ a.year }} · {{ a.technique }} · {{ a.dimensions }}
       </p>
