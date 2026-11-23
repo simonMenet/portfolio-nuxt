@@ -33,27 +33,32 @@ useSeoMeta({
       :alt="a.title"
       class="max-h-[75vh] w-full object-contain"
     >
+
     <aside>
       <button
         type="button"
-        class="mono mb-8 inline-flex items-center border-b border-black/30 pb-1 text-xs text-black/60 transition-colors hover:border-black hover:text-black focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
+        class="mb-8 inline-flex items-center border-b border-[#222222] pb-1 text-xs text-black/60 transition-colors hover:border-black hover:text-black focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
         @click="goBack"
       >
         ← Retour
       </button>
-      <p class="mono text-xs">INVENTAIRE / {{ a.id }}</p>
+
       <h1 class="my-6 text-[2rem] leading-tight">{{ a.title }}</h1>
-      <p class="border-t border-black py-4">
+
+      <p class="border-t border-[#222222] py-4">
         {{ a.year }} · {{ a.technique }} · {{ a.dimensions }}
       </p>
+
       <p>{{ statusLabel[a.status] || a.status }}</p>
+
       <NuxtLink
         :to="`/contact?ref=${a.id}`"
-        class="mt-8 inline-block border border-black p-4 mono text-xs"
+        class="mt-8 inline-block border border-[#222222] p-4 text-xs transition-colors hover:border-black"
       >
         Demande d’acquisition ↗
       </NuxtLink>
     </aside>
   </main>
+
   <p v-else class="p-20">Œuvre introuvable</p>
 </template>
