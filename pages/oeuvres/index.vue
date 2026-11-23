@@ -9,7 +9,7 @@ useSeoMeta({
 
 <template>
   <main class="p-8 md:p-16">
-    <section v-for="s in series" :key="s.id" class="mb-20 border-t border-black pt-5">
+    <section v-for="s in series" :key="s.id" class="mb-20 border-t pt-5">
       <h2 class="text-4xl">{{ s.title }}</h2>
       <p class="my-6 max-w-2xl">{{ s.statement }}</p>
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -24,7 +24,7 @@ useSeoMeta({
       </div>
     </section>
 
-    <section class="border-t border-black pt-5">
+    <section class="pt-5">
       <h2 class="text-4xl">Œuvres choisies</h2>
       <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         <NuxtLink
