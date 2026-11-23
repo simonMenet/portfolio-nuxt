@@ -1,1 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Space+Mono&display=swap');@tailwind base;@tailwind components;@tailwind utilities;body{margin:0;background:#f8f8f6;color:#111;font-family:Archivo,sans-serif}button{cursor:pointer}.mono{font-family:'Space Mono',monospace}.display{text-transform:uppercase;letter-spacing:-.05em}
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/Fontspring-DEMO-proximanova-regular.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/Fontspring-DEMO-proximanova-light.otf') format('opentype');
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  background: #f8f8f6;
+  color: #111;
+  font-family: 'Proxima Nova', sans-serif;
+  font-weight: 400;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.mono {
+  font-family: 'Space Mono', monospace;
+}
+
+.display {
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+}
+
+/* Les onglets de navigation utilisent Proxima Nova Light ; .mono reste actif ailleurs. */
+header nav.mono {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
