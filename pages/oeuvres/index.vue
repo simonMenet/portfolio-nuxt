@@ -9,7 +9,7 @@ useSeoMeta({
 
 <template>
   <main class="p-8 md:p-16">
-    <section v-for="s in series" :key="s.id" class="mb-20 border-t pt-5">
+    <section v-for="s in series" :key="s.id" class="mb-20 pt-5">
       <h2 class="text-4xl">{{ s.title }}</h2>
       <p class="my-6 max-w-2xl">{{ s.statement }}</p>
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
