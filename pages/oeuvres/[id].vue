@@ -18,11 +18,6 @@ const statusLabel: Record<string, string> = {
   reserved: 'Réservée',
   private_collection: 'Collection privée',
 }
-
-useSeoMeta({
-  title: () => a.value?.title || 'Œuvre',
-  description: 'Fiche œuvre — Simon MENET',
-})
 </script>
 
 <template>
@@ -37,7 +32,7 @@ useSeoMeta({
     <aside>
       <button
         type="button"
-        class="mb-8 inline-flex items-center border-b border-[#F4F4F2] pb-1 text-xs text-black/60 transition-colors hover:border-black hover:text-black focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
+        class="mb-8 inline-flex items-center text-xs text-[#222222] transition-colors duration-200 hover:text-[#969490] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
         @click="goBack"
       >
         ← Retour
@@ -45,7 +40,7 @@ useSeoMeta({
 
       <h1 class="my-6 text-[2rem] leading-tight">{{ a.title }}</h1>
 
-      <p class="border-t border-[#F4F4F2] py-4">
+      <p class="border-t-[3px] border-white py-4">
         {{ a.year }} · {{ a.technique }} · {{ a.dimensions }}
       </p>
 
@@ -53,7 +48,7 @@ useSeoMeta({
 
       <NuxtLink
         :to="`/contact?ref=${a.id}`"
-        class="mt-8 inline-block border border-[#F4F4F2] p-4 text-xs transition-colors hover:border-black"
+        class="mt-8 inline-block border-[3px] border-white p-4 text-xs transition-colors duration-200 hover:border-[#222222]"
       >
         Demande d’acquisition ↗
       </NuxtLink>
