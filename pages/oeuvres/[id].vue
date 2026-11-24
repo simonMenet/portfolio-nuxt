@@ -69,13 +69,13 @@ const statusLabel: Record<string, string> = {
         </div>
 
         <div v-if="slides.length > 1" class="mt-4">
-          <div class="flex flex-wrap items-center justify-start gap-3" role="group" aria-label="Choisir une image">
+          <div class="flex flex-wrap items-center justify-center gap-3" role="group" aria-label="Choisir une image">
             <button
               v-for="(slide, index) in slides"
               :key="slide.label"
               type="button"
-              class="inline-flex h-20 w-24 items-center justify-center border-2 p-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              :class="activeSlide === index ? 'border-[#222222]' : 'border-[#969490] hover:border-[#222222]'"
+              class="h-20 w-20 shrink-0 overflow-hidden border-2 border-transparent p-0 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              :class="activeSlide === index ? 'border-[#222222]' : ''"
               :aria-label="`Afficher ${slide.label}`"
               :aria-pressed="activeSlide === index"
               @click="activeSlide = index"
