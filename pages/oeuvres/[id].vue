@@ -13,6 +13,7 @@ function goBack() {
 
 const a = computed(() => artworks.value.find(x => x.id === route.params.id))
 const activeSlide = ref(0)
+
 const slides = computed(() => {
   const images = a.value?.images
   if (!images) return []
@@ -26,7 +27,10 @@ const slides = computed(() => {
     .slice(0, 3)
 })
 
-watch(() => a.value?.id, () => { activeSlide.value = 0 })
+watch(() => a.value?.id, () => {
+  activeSlide.value = 0
+})
+
 watch(() => slides.value.length, length => {
   if (activeSlide.value >= length) activeSlide.value = 0
 })
@@ -47,41 +51,43 @@ const statusLabel: Record<string, string> = {
       aria-roledescription="carrousel"
       :aria-label="`Images de ${a.title}`"
     >
-      <div
-        class="flex min-h-[18rem] items-center justify-center"
-        role="group"
-        aria-roledescription="diapositive"
-        :aria-label="`Image ${activeSlide + 1} sur ${slides.length} : ${slides[activeSlide]?.label}`"
-      >
-        <Transition name="image-fade" mode="out-in">
-          <img
-            :key="slides[activeSlide]?.label"
-            :src="slides[activeSlide]?.src"
-            :alt="`${a.title} — ${slides[activeSlide]?.label}`"
-            class="max-h-[75vh] w-full object-contain"
-          >
-        </Transition>
-      </div>
-
-      <div v-if="slides.length > 1" class="mt-4">
-        <div class="flex flex-wrap items-center gap-3" role="group" aria-label="Choisir une image">
-          <button
-            v-for="(slide, index) in slides"
-            :key="slide.label"
-            type="button"
-            class="inline-flex h-20 w-24 items-center justify-center border-2 p-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            :class="activeSlide === index ? 'border-[#222222]' : 'border-[#969490] hover:border-[#222222]'"
-            :aria-label="`Afficher ${slide.label}`"
-            :aria-pressed="activeSlide === index"
-            @click="activeSlide = index"
-          >
-            <img :src="slide.src" alt="" class="h-full w-full object-cover">
-          </button>
+      <div class="mx-auto w-full max-w-3xl">
+        <div
+          class="flex min-h-[18rem] w-full items-center justify-center"
+          role="group"
+          aria-roledescription="diapositive"
+          :aria-label="`Image ${activeSlide + 1} sur ${slides.length} : ${slides[activeSlide]?.label}`"
+        >
+          <Transition name="image-fade" mode="out-in">
+            <img
+              :key="slides[activeSlide]?.label"
+              :src="slides[activeSlide]?.src"
+              :alt="`${a.title} — ${slides[activeSlide]?.label}`"
+              class="max-h-[75vh] w-full object-contain"
+            >
+          </Transition>
         </div>
 
-        <p class="mt-3 text-center text-sm" aria-live="polite" aria-atomic="true">
-          {{ slides[activeSlide]?.label }} · {{ activeSlide + 1 }} / {{ slides.length }}
-        </p>
+        <div v-if="slides.length > 1" class="mt-4">
+          <div class="flex flex-wrap items-center justify-start gap-3" role="group" aria-label="Choisir une image">
+            <button
+              v-for="(slide, index) in slides"
+              :key="slide.label"
+              type="button"
+              class="inline-flex h-20 w-24 items-center justify-center border-2 p-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              :class="activeSlide === index ? 'border-[#222222]' : 'border-[#969490] hover:border-[#222222]'"
+              :aria-label="`Afficher ${slide.label}`"
+              :aria-pressed="activeSlide === index"
+              @click="activeSlide = index"
+            >
+              <img :src="slide.src" alt="" class="h-full w-full object-cover">
+            </button>
+          </div>
+
+          <p class="mt-3 text-center text-sm" aria-live="polite" aria-atomic="true">
+            {{ slides[activeSlide]?.label }} · {{ activeSlide + 1 }} / {{ slides.length }}
+          </p>
+        </div>
       </div>
     </section>
 
