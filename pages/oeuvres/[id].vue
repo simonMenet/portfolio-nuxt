@@ -21,7 +21,9 @@ const slides = computed(() => {
     { src: images.vue_principale, label: 'Vue principale' },
     { src: images.vue_situation, label: 'Vue en situation' },
     { src: images.vue_detail, label: 'Vue de détail' },
-  ].filter(slide => typeof slide.src === 'string' && slide.src.trim().length > 0)
+  ]
+    .filter(slide => typeof slide.src === 'string' && slide.src.trim().length > 0)
+    .slice(0, 3)
 })
 
 watch(() => a.value?.id, () => { activeSlide.value = 0 })
@@ -51,37 +53,35 @@ const statusLabel: Record<string, string> = {
         aria-roledescription="diapositive"
         :aria-label="`Image ${activeSlide + 1} sur ${slides.length} : ${slides[activeSlide]?.label}`"
       >
-        <img
-          :src="slides[activeSlide]?.src"
-          :alt="`${a.title} — ${slides[activeSlide]?.label}`"
-          class="max-h-[75vh] w-full object-contain"
-        >
+        <Transition name="image-fade" mode="out-in">
+          <img
+            :key="slides[activeSlide]?.label"
+            :src="slides[activeSlide]?.src"
+            :alt="`${a.title} — ${slides[activeSlide]?.label}`"
+            class="max-h-[75vh] w-full object-contain"
+          >
+        </Transition>
       </div>
 
-      <div v-if="slides.length > 1" class="mt-4 flex items-center justify-between gap-4">
-        <button
-          type="button"
-          class="inline-flex min-h-11 min-w-11 items-center justify-center border border-[#969490] px-3 text-xl transition-colors hover:border-[#222222] disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-          aria-label="Image précédente"
-          :disabled="activeSlide === 0"
-          @click="activeSlide--"
-        >
-          <span aria-hidden="true">←</span>
-        </button>
+      <div v-if="slides.length > 1" class="mt-4">
+        <div class="flex flex-wrap items-center gap-3" role="group" aria-label="Choisir une image">
+          <button
+            v-for="(slide, index) in slides"
+            :key="slide.label"
+            type="button"
+            class="inline-flex h-20 w-24 items-center justify-center border-2 p-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            :class="activeSlide === index ? 'border-[#222222]' : 'border-[#969490] hover:border-[#222222]'"
+            :aria-label="`Afficher ${slide.label}`"
+            :aria-pressed="activeSlide === index"
+            @click="activeSlide = index"
+          >
+            <img :src="slide.src" alt="" class="h-full w-full object-cover">
+          </button>
+        </div>
 
-        <p class="text-center text-sm" aria-live="polite" aria-atomic="true">
+        <p class="mt-3 text-center text-sm" aria-live="polite" aria-atomic="true">
           {{ slides[activeSlide]?.label }} · {{ activeSlide + 1 }} / {{ slides.length }}
         </p>
-
-        <button
-          type="button"
-          class="inline-flex min-h-11 min-w-11 items-center justify-center border border-[#969490] px-3 text-xl transition-colors hover:border-[#222222] disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-          aria-label="Image suivante"
-          :disabled="activeSlide === slides.length - 1"
-          @click="activeSlide++"
-        >
-          <span aria-hidden="true">→</span>
-        </button>
       </div>
     </section>
 
@@ -113,3 +113,15 @@ const statusLabel: Record<string, string> = {
 
   <p v-else class="p-20">Œuvre introuvable</p>
 </template>
+
+<style scoped>
+.image-fade-enter-active,
+.image-fade-leave-active {
+  transition: opacity 120ms ease;
+}
+
+.image-fade-enter-from,
+.image-fade-leave-to {
+  opacity: 0;
+}
+</style>
