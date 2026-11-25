@@ -43,17 +43,20 @@ const statusLabel: Record<string, string> = {
 </script>
 
 <template>
-  <main v-if="a" class="grid gap-10 p-8 md:grid-cols-2 md:p-16">
+  <main
+    v-if="a"
+    class="artwork-detail grid gap-6 overflow-hidden p-6 md:grid-cols-2 md:gap-10 md:px-16 md:py-8"
+  >
     <section
       v-if="slides.length"
-      class="min-w-0"
+      class="flex min-h-0 min-w-0 flex-col justify-center"
       role="region"
       aria-roledescription="carrousel"
       :aria-label="`Images de ${a.title}`"
     >
-      <div class="mx-auto w-full max-w-3xl">
+      <div class="mx-auto flex min-h-0 w-full max-w-3xl flex-col justify-center">
         <div
-          class="flex min-h-[18rem] w-full items-center justify-center"
+          class="flex min-h-0 w-full flex-1 items-center justify-center"
           role="group"
           aria-roledescription="diapositive"
           :aria-label="`Image ${activeSlide + 1} sur ${slides.length} : ${slides[activeSlide]?.label}`"
@@ -63,19 +66,21 @@ const statusLabel: Record<string, string> = {
               :key="slides[activeSlide]?.label"
               :src="slides[activeSlide]?.src"
               :alt="`${a.title} — ${slides[activeSlide]?.label}`"
-              class="max-h-[75vh] w-full object-contain"
+              class="max-h-full max-w-full object-contain"
             >
           </Transition>
         </div>
 
-        <div v-if="slides.length > 1" class="mt-4">
+        <div v-if="slides.length > 1" class="shrink-0 pt-4">
           <div class="flex flex-wrap items-center justify-center gap-3" role="group" aria-label="Choisir une image">
             <button
               v-for="(slide, index) in slides"
               :key="slide.label"
               type="button"
-              class="h-20 w-20 shrink-0 overflow-hidden border-2 border-transparent p-0 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              :class="activeSlide === index ? 'border-[#222222]' : ''"
+              class="h-20 w-20 shrink-0 overflow-hidden border-2 p-0 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              :style="{
+                borderColor: activeSlide === index ? '#222222' : 'transparent',
+              }"
               :aria-label="`Afficher ${slide.label}`"
               :aria-pressed="activeSlide === index"
               @click="activeSlide = index"
@@ -84,23 +89,23 @@ const statusLabel: Record<string, string> = {
             </button>
           </div>
 
-          <p class="mt-3 text-center text-sm" aria-live="polite" aria-atomic="true">
+          <p class="mt-2 text-center text-sm" aria-live="polite" aria-atomic="true">
             {{ slides[activeSlide]?.label }} · {{ activeSlide + 1 }} / {{ slides.length }}
           </p>
         </div>
       </div>
     </section>
 
-    <aside>
+    <aside class="flex min-h-0 flex-col justify-center">
       <button
         type="button"
-        class="mb-8 inline-flex items-center text-xs text-[#222222] transition-colors duration-200 hover:text-[#969490] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
+        class="mb-5 inline-flex w-fit items-center text-xs text-[#222222] transition-colors duration-200 hover:text-[#969490] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
         @click="goBack"
       >
         ← Retour
       </button>
 
-      <h1 class="my-6 text-[2rem] leading-tight">{{ a.title }}</h1>
+      <h1 class="my-4 text-[2rem] leading-tight">{{ a.title }}</h1>
 
       <p class="border-t-[3px] border-white py-4">
         {{ a.year }} · {{ a.technique }} · {{ a.dimensions }}
@@ -110,7 +115,7 @@ const statusLabel: Record<string, string> = {
 
       <NuxtLink
         :to="`/contact?ref=${a.id}`"
-        class="mt-8 inline-block border-[3px] border-white p-4 text-xs transition-colors duration-200 hover:border-[#222222]"
+        class="mt-6 inline-block w-fit border-[3px] border-white p-4 text-xs transition-colors duration-200 hover:border-[#222222]"
       >
         Demande d’acquisition ↗
       </NuxtLink>
@@ -121,6 +126,11 @@ const statusLabel: Record<string, string> = {
 </template>
 
 <style scoped>
+.artwork-detail {
+  height: calc(100vh - 5rem);
+  height: calc(100dvh - 5rem);
+}
+
 .image-fade-enter-active,
 .image-fade-leave-active {
   transition: opacity 120ms ease;
