@@ -10,7 +10,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <main class="flex min-h-[85vh] flex-col border-b border-black">
+  <main class="flex min-h-[85vh] flex-col">
     <div class="flex flex-1 items-center justify-center p-6">
       <img
         v-if="homepage?.heroImage"
