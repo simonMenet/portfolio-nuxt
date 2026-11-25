@@ -5,10 +5,13 @@ const artworksQuery = `*[_type == "artwork"] | order(year desc){
   year,
   technique,
   dimensions,
+  price,
   "images": {
     "vue_principale": vue_principale.asset->url,
+    "vue_situation": vue_situation.asset->url,
     "vue_detail": vue_detail.asset->url,
-    "vue_situation": vue_situation.asset->url
+    "vue_detail_2": vue_detail_2.asset->url,
+    "vue_detail_3": vue_detail_3.asset->url
   },
   status
 }`

@@ -1,1 +1,26 @@
-import type{Artwork,Series}from'~/types/catalogue';export const mockArtworks:Artwork[]=Array.from({length:8},(_,i)=>({id:`oeuvre-${String(i+1).padStart(2,'0')}`,title:['Marée basse','La chambre des courants','Ce qui demeure','L’autre rive','Lisière I','État de veille','Sans titre (horizon)','Après la pluie'][i]!,seriesId:i<4?'eaux-interieures':undefined,year:2025-i,technique:'Huile et pigments sur toile',dimensions:['80 × 60 cm','100 × 70 cm','70 × 70 cm','92 × 65 cm'][i%4]!,images:{vue_principale:`/mock/art-${i%3}.svg`,vue_detail:`/mock/art-${i%3}.svg`,vue_situation:`/mock/art-${i%3}.svg`},status:'available'}));export const mockSeries:Series[]=[{id:'eaux-interieures',title:'Les Eaux intérieures',year:2023,statement:'Une exploration des paysages qui affleurent sous la surface : l’eau comme mémoire, seuil et matière.',artworkIds:mockArtworks.slice(0,4).map(a=>a.id)}]
+import type { Artwork, Series } from '~/types/catalogue'
+
+export const mockArtworks: Artwork[] = Array.from({ length: 8 }, (_, i) => ({
+  id: `oeuvre-${String(i + 1).padStart(2, '0')}`,
+  title: ['Marée basse', 'La chambre des courants', 'Ce qui demeure', 'L’autre rive', 'Lisière I', 'État de veille', 'Sans titre (horizon)', 'Après la pluie'][i]!,
+  seriesId: i < 4 ? 'eaux-interieures' : undefined,
+  year: 2025 - i,
+  technique: 'Huile et pigments sur toile',
+  dimensions: ['80 × 60 cm', '100 × 70 cm', '70 × 70 cm', '92 × 65 cm'][i % 4]!,
+  images: {
+    vue_principale: `/mock/art-${i % 3}.svg`,
+    vue_situation: `/mock/art-${(i + 1) % 3}.svg`,
+    vue_detail: `/mock/art-${(i + 2) % 3}.svg`,
+    vue_detail_2: `/mock/art-${(i + 1) % 3}.svg`,
+    vue_detail_3: `/mock/art-${i % 3}.svg`,
+  },
+  status: 'available',
+}))
+
+export const mockSeries: Series[] = [{
+  id: 'eaux-interieures',
+  title: 'Les Eaux intérieures',
+  year: 2023,
+  statement: 'Une exploration des paysages qui affleurent sous la surface : l’eau comme mémoire, seuil et matière.',
+  artworkIds: mockArtworks.slice(0, 4).map(a => a.id),
+}]
