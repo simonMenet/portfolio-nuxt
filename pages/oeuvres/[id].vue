@@ -41,6 +41,7 @@ const statusLabel: Record<string, string> = {
   available: 'Disponible',
   reserved: 'Réservée',
   private_collection: 'Collection privée',
+  sold: 'Sold',
 }
 
 const formattedPrice = computed(() => {

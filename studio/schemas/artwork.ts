@@ -22,7 +22,14 @@ export default defineType({
       name: 'status',
       title: 'Statut',
       type: 'string',
-      options: { list: ['available', 'reserved', 'private_collection'] },
+      options: {
+        list: [
+          { title: 'Disponible', value: 'available' },
+          { title: 'Réservée', value: 'reserved' },
+          { title: 'Collection privée', value: 'private_collection' },
+          { title: 'Vendu', value: 'sold' },
+        ],
+      },
     }),
     defineField({ name: 'vue_principale', title: 'Vue principale', type: 'image', options: { hotspot: true } }),
     defineField({ name: 'vue_situation', title: 'Vue en situation', type: 'image', options: { hotspot: true } }),
